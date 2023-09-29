@@ -8,6 +8,7 @@ class BurgerPage extends StatefulWidget {
 
 class _BurgerPageState extends State<BurgerPage> {
   int itemCount = 1;
+  bool isPressed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -64,9 +65,13 @@ class _BurgerPageState extends State<BurgerPage> {
                       ),
                       InkWell(
                         onTap: () {},
-                        child: const Icon(
-                          Icons.favorite_border,
-                          size: 36,
+                        child:  IconButton(
+                          onPressed:(){
+                            setState(() {
+                              isPressed = !isPressed;
+                            });
+                          },
+                          icon:isPressed ? const Icon(Icons.favorite) : const Icon(Icons.favorite_border),
                         ),
                       ),
                     ],
@@ -106,14 +111,15 @@ class _BurgerPageState extends State<BurgerPage> {
                             borderRadius: BorderRadius.circular(15),
                           ),
                           child: IconButton(
-                              onPressed: () {
-                                if (itemCount > 0) {
-                                  setState(() {
-                                    itemCount--;
-                                  });
-                                }
-                              },
-                              icon: const Icon(Icons.remove)),
+                            onPressed: () {
+                              if (itemCount > 0) {
+                                setState(() {
+                                  itemCount--;
+                                });
+                              }
+                            },
+                            icon: const Icon(Icons.remove),
+                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 15, right: 15),
@@ -133,15 +139,59 @@ class _BurgerPageState extends State<BurgerPage> {
                           ),
                           child: IconButton(
                               onPressed: () {
-                                if (itemCount > 0) {
                                   setState(() {
-                                    itemCount--;
+                                    itemCount++;
                                   });
-                                }
                               },
                               icon: const Icon(Icons.add)),
                         ),
                       ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 15),
+                  child: Expanded(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: const EdgeInsets.only(
+                        top: 10,
+                        left: 25,
+                        right: 25,
+                      ),
+                      decoration: const BoxDecoration(
+                        border: Border(
+                          top: BorderSide(
+                            color: Colors.grey,
+                            width: 2.0,
+                            style: BorderStyle.solid,
+                          ),
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "${(itemCount * 15.95).toStringAsFixed(2)} \$",
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 22,
+                            ),
+                          ),
+                          ElevatedButton.icon(
+                            onPressed: () {
+                              //TODO PAYMENT
+                            },
+                            icon: const Icon(
+                              Icons.shopping_cart,
+                              color: Colors.white,
+                            ),
+                            label: const Text("ORDER NOW"),
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.teal),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
