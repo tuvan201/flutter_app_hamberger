@@ -79,9 +79,35 @@ class _HeaderState extends State<Header> {
                     ],
                   ),
                 ]),
+              ),
+              const SizedBox(
+                height: 20,
               )
             ],
           ),
+          Positioned(
+            bottom: 0,
+            child: Container(
+              height: 50,
+              width: size.width,
+              child: Card(
+                elevation: 3,
+                margin: const EdgeInsets.symmetric(horizontal: 40),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)),
+                child: TextFormField(
+                  textAlignVertical: TextAlignVertical.center,
+                  decoration: const InputDecoration(
+                    contentPadding: EdgeInsets.only(left: 15),
+                    border: InputBorder.none,
+                    hintText: "What does your belly want to eat?",
+                    suffixIcon: Icon(Icons.search, color: Colors.black,),
+                    prefixIconConstraints: BoxConstraints(minHeight: 0, minWidth: 15)
+                  ),
+                ),
+              ),
+            ),
+          )
         ],
       ),
     ]));

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'header.dart';
+import 'catagories.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -11,8 +13,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-          appBarTheme:
-              const AppBarTheme(color: Colors.teal, centerTitle: true)),
+          appBarTheme: const AppBarTheme(color: Colors.teal, centerTitle: true),
+          bottomAppBarTheme: const BottomAppBarTheme(color: Colors.teal),
+          ),
+          
       debugShowCheckedModeBanner: false,
       home: Hamberger(),
     );
@@ -28,7 +32,9 @@ class _HambergerState extends State<Hamberger> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //tạo 1 scrollview cho việc khả dụng thao tác kéo thả hoặc lướt xuống cho giao diện người dùng
       body: CustomScrollView(slivers: [
+        //appbar application
         SliverAppBar(
           pinned: true,
           title: const Text("Devider Me"),
@@ -37,20 +43,54 @@ class _HambergerState extends State<Hamberger> {
             IconButton(onPressed: () {}, icon: const Icon(Icons.shopping_cart))
           ],
         ),
+        //body application
         Header(),
-
-        //Test cuộn thanh header vẫn hiển thị title cho appbar
-        //  SliverList(
-        //   delegate: SliverChildBuilderDelegate(
-        //     (context, index) {
-        //       return ListTile(
-        //         title: Text('Item $index'),
-        //       );
-        //     },
-        //     childCount: 20, // Số lượng item bạn muốn hiển thị
-        //   ),
-        // ),
+        Categories(),
+        SliverList(
+            delegate: SliverChildListDelegate([
+          const Text(
+            "Hamberger",
+            style: TextStyle(fontSize: 300),
+          ),
+        ]))
       ]),
+      //bottom application
+      extendBody: true,  //khả dụng cho việc hiển thị body content tại khoảng trống của bottom
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.orange,
+        onPressed: () {},
+        child: const Icon(Icons.home),
+      ),
+      bottomNavigationBar: ClipRRect(
+        borderRadius:const  BorderRadius.vertical(top: Radius.circular(40)),
+        child: Container(
+          color: Colors.black38,
+          child: BottomAppBar(
+            shape: const CircularNotchedRectangle(), //tạo khía hình tròn cho nút home
+            child: Row(
+              children: [
+                const Spacer(),
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.add_alert,
+                      color: Colors.white,
+                    )),
+                const Spacer(),
+                const Spacer(),
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.turned_in,
+                       color: Colors.white)
+                    ),
+                const Spacer(),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
