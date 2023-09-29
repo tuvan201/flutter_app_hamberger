@@ -1,6 +1,8 @@
 import "package:flutter/material.dart";
-
+import 'burger_page.dart';
 class HamberGersList extends StatefulWidget {
+  final int row;
+  HamberGersList({required this.row});
   @override
   State<HamberGersList> createState() => _HamberGersListState();
 }
@@ -21,12 +23,13 @@ class _HamberGersListState extends State<HamberGersList> {
 
     return SliverToBoxAdapter(
       child: Container(
-        height: 250,
+        height: widget.row ==2 ? 300 : 250,
         margin: const EdgeInsets.only(top: 10),
         child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: items,
             itemBuilder: (context, index) {
+              bool reverse = widget.row == 1 ? index.isEven : index.isOdd;
               return Stack(
                 children: [
                   Container(
@@ -37,6 +40,7 @@ class _HamberGersListState extends State<HamberGersList> {
                     child: GestureDetector(
                       onTap: () {
                         //TODO NAVIGATOR
+                        Navigator.of(context).pushNamed(BurgerPage.tag);
                       },
                       child: Card(
                         color: Colors.teal,
@@ -54,7 +58,7 @@ class _HamberGersListState extends State<HamberGersList> {
                           child: Column(
                             children: [
                               Text(
-                                index.isEven ? "Bacon burger" : "Beef burger",
+                                reverse ? "Bacon burger" : "Beef burger",
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 20,
@@ -92,13 +96,14 @@ class _HamberGersListState extends State<HamberGersList> {
                     ),
                   ),
                   Positioned(
-                    bottom: 60,
+                    bottom: widget.row == 2 ? 110 : 60,
                     left: -15,
                     child: GestureDetector(
                       onTap: () {
                         //TODO Navigator
+                        Navigator.of(context).pushNamed(BurgerPage.tag);
                       },
-                      child: index.isEven ? burgerSandwich : baconBurgerImage,
+                      child: reverse ? burgerSandwich : baconBurgerImage,
                     ),
                   )
                 ],

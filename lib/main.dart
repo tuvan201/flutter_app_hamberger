@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'header.dart';
 import 'catagories.dart';
 import "hamberger_list.dart";
+import 'burger_page.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -16,9 +17,12 @@ class MyApp extends StatelessWidget {
           appBarTheme: const AppBarTheme(color: Colors.teal, centerTitle: true),
           bottomAppBarTheme: const BottomAppBarTheme(color: Colors.teal),
           ),
-          
+      initialRoute: '/',
+      routes:{
+        '/':(context) => Hamberger(),
+        BurgerPage.tag: (_)=> BurgerPage(),
+        } ,
       debugShowCheckedModeBanner: false,
-      home: Hamberger(),
     );
   }
 }
@@ -46,8 +50,8 @@ class _HambergerState extends State<Hamberger> {
         //body application
         Header(),
         Categories(),
-        HamberGersList(),
-        HamberGersList(),
+        HamberGersList(row: 1,),
+        HamberGersList(row: 2),
       ]),
       //bottom application
       extendBody: true,  //khả dụng cho việc hiển thị body content tại khoảng trống của bottom
