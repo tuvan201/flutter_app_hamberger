@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'header.dart';
 import 'catagories.dart';
-
+import "hamberger_list.dart";
 void main() {
   runApp(const MyApp());
 }
@@ -46,13 +46,8 @@ class _HambergerState extends State<Hamberger> {
         //body application
         Header(),
         Categories(),
-        SliverList(
-            delegate: SliverChildListDelegate([
-          const Text(
-            "Hamberger",
-            style: TextStyle(fontSize: 300),
-          ),
-        ]))
+        HamberGersList(),
+        HamberGersList(),
       ]),
       //bottom application
       extendBody: true,  //khả dụng cho việc hiển thị body content tại khoảng trống của bottom
